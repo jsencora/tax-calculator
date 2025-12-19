@@ -1,7 +1,7 @@
 .form {
   display: flex;
   justify-content: space-between;
-  gap: 5px;
+  gap: 20px;
 }
 
 .inputs {
@@ -12,4 +12,13 @@
 .submitButton {
   border: 1px solid rgb(238, 238, 238);
   box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 6px 0px;
+}
+
+@media (max-width: 590px) {
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+  }
 }
