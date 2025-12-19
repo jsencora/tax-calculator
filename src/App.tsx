@@ -2,8 +2,8 @@ import { useState, useRef } from "react";
 import type { TaxYear, Status } from "./types";
 import { getTaxBrackets } from "./api/taxApi";
 import { calculateTaxes } from "./lib/taxCalculator";
-import { formatCurrency, formatPercent } from "./lib/formatter";
 import Form from "./components/Form";
+import Results from "./components/Results";
 import "./App.css";
 
 function App() {
@@ -48,10 +48,7 @@ function App() {
       {status === "error" && <div role="alert">{error}</div>}
 
       {status === "success" && result && (
-        <div>
-          <div>Total tax: {formatCurrency(result.totalTax)}</div>
-          <div>Effective rate: {formatPercent(result.effectiveRate)}</div>
-        </div>
+       <Results result={result}/>
       )}
     </>
   );

@@ -1,7 +1,5 @@
 import type { TaxBracket, TaxYear, TaxBracketsResponse } from "../types";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
 async function fetchWithRetry(
   url: string,
   options: RequestInit,
@@ -16,31 +14,29 @@ async function fetchWithRetry(
 
     return res;
   } catch (err) {
-    if (retries <= 0) {
-      throw err;
-    }
+    if (retries <= 0) throw err;
     return fetchWithRetry(url, options, retries - 1);
   }
 }
 
 export async function getTaxBrackets(
   year: TaxYear,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  baseUrl: string = import.meta.env.VITE_API_BASE_URL
 ): Promise<TaxBracket[]> {
-  if (!API_BASE_URL) {
+  if (!baseUrl) {
     throw new Error("Missing VITE_API_BASE_URL environment variable");
   }
 
   const response = await fetchWithRetry(
-    `${API_BASE_URL}/tax-calculator/tax-year/${year}`,
+    `${baseUrl}/tax-calculator/tax-year/${year}`,
     {
       headers: { Accept: "application/json" },
-      signal
+      signal,
     },
     1 //This can be changed depending on how many retries are desired
   );
 
   const data: TaxBracketsResponse = await response.json();
-
   return data.tax_brackets;
 }
