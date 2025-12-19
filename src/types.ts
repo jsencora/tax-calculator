@@ -24,3 +24,5 @@ export type TaxBandResult = {
     effectiveRate: number; // totalTax / income (0 if income <= 0)
     bands: TaxBandResult[];
   };
+
+  export type Status = "idle" | "loading" | "success" | "error";

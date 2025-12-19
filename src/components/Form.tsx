@@ -5,9 +5,10 @@ const TAX_YEARS = [2019, 2020, 2021, 2022] as const;
 
 type Props = {
   onSubmit: (data: { year: TaxYear; income: number; }) => void;
+  isSubmitting: boolean
 };
 
-const Form = ({ onSubmit }: Props) => {
+const Form = ({ onSubmit, isSubmitting }: Props) => {
   const [year, setYear] = useState<TaxYear | null>(null);
   const [income, setIncome] = useState<number>(0);
 
@@ -44,7 +45,7 @@ const Form = ({ onSubmit }: Props) => {
         ))}
       </select>
 
-      <button type="submit">Calculate Tax</button>
+      <button type="submit" disabled={isSubmitting}>Calculate Tax</button>
     </form>
   );
 };
