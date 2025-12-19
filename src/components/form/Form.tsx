@@ -1,5 +1,6 @@
 import { useState } from "react";
-import type { TaxYear } from "../types";
+import type { TaxYear } from "../../types";
+import styles from "./Form.module.css";
 
 const TAX_YEARS = [2019, 2020, 2021, 2022] as const;
 
@@ -10,24 +11,28 @@ type Props = {
 
 const Form = ({ onSubmit, isSubmitting }: Props) => {
   const [year, setYear] = useState<TaxYear | null>(null);
-  const [income, setIncome] = useState<number>(0);
+  const [income, setIncome] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (year === null) return;
 
-    onSubmit({ year, income });
+    const parsedIncome = income === "" ? 0 : Number(income);
+    onSubmit({ year, income: parsedIncome });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <input
         type="number"
         value={income}
-        onChange={(e) => setIncome(Number(e.target.value))}
+        onChange={(e) => setIncome(e.target.value)}
+        className={styles.inputs}
+        placeholder="Introduce your salary"
       />
 
       <select
+        className={styles.inputs}
         name="year"
         value={year ?? ""}
         onChange={(e) => {
@@ -45,7 +50,7 @@ const Form = ({ onSubmit, isSubmitting }: Props) => {
         ))}
       </select>
 
-      <button type="submit" disabled={isSubmitting}>Calculate Tax</button>
+      <button type="submit" disabled={isSubmitting} className={styles.submitButton}>Calculate Tax</button>
     </form>
   );
 };

@@ -1,0 +1,15 @@
+.form {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.inputs {
+  border: 1px solid rgb(238, 238, 238);
+  box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 6px 0px;
+}
+
+.submitButton {
+  border: 1px solid rgb(238, 238, 238);
+  box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 6px 0px;
+}

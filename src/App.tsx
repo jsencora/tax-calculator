@@ -2,8 +2,8 @@ import { useState, useRef } from "react";
 import type { TaxYear, Status } from "./types";
 import { getTaxBrackets } from "./api/taxApi";
 import { calculateTaxes } from "./lib/taxCalculator";
-import Form from "./components/Form";
-import Results from "./components/Results";
+import Form from "./components/form/Form";
+import Results from "./components/results/Results";
 import "./App.css";
 
 function App() {
@@ -40,7 +40,9 @@ function App() {
   };
 
   return (
-    <>
+    <div className="container">
+      <h1>Tax Calculator</h1>
+      <h2>Calculate your Total Taxes and Effective Rate</h2>
       <Form onSubmit={handleSubmit} isSubmitting={status === "loading"}/>
 
       {status === "loading" && <div>Loading…</div>}
@@ -50,7 +52,7 @@ function App() {
       {status === "success" && result && (
        <Results result={result}/>
       )}
-    </>
+    </div>
   );
 }
 
