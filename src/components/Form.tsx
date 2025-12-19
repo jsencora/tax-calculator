@@ -37,7 +37,7 @@ const Form = ({ onSubmit, isSubmitting }: Props) => {
           );
         }}
       >
-        <option value="">Selecciona un año</option>
+        <option value="">Select a year</option>
         {TAX_YEARS.map((year) => (
           <option key={year} value={year}>
             {year}
